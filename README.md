@@ -22,7 +22,7 @@ A PHP application for tracking banana shelf life in refrigerators with a messagi
 1. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/banana-tracker.git
+git clone https://github.com/TeyvatBytes/banana-tracker.git
 cd banana-tracker
 ```
 
