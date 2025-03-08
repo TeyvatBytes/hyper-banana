@@ -24,8 +24,8 @@ function setupDatabase()
     // Get database connection
     try {
         // First try to connect to postgres to create the database
-        global $host, $user, $password;
-        $pdo = new PDO("pgsql:host=$host", $user, $password);
+        global $host, $user, $password, $dbname;
+        $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Create the database if it doesn't exist
