@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: banana-frontend
-          image: php-banana
+          image: hyper-banana
           env:
             - name: DB_HOST
               valueFrom:
