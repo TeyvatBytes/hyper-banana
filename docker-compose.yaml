@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: banana-tracker-app
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_NAME=banana_tracker
+      - DB_USER=postgres
+      - DB_PASSWORD=your_password
+    restart: unless-stopped
+    networks:
+      - banana-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: banana-tracker-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=banana_tracker
+    restart: unless-stopped
+    networks:
+      - banana-network
+
+volumes:
+  postgres_data:
+
+networks:
+  banana-network:
+    driver: bridge
