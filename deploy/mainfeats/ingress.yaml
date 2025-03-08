@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: banana-service
+  annotations:
+    "cert-manager.io/cluster-issuer": "cf-teyvatsbyte-issuer-prod"
+spec:
+  rules:
+    - host: banana.teyvatbytes.com # Placeholder, will be patched in overlays
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-frontend
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - banana.teyvatbytes.com
+      secretName: tls-banana-secret

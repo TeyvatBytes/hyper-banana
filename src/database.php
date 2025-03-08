@@ -1,14 +1,11 @@
 <?php
-
-$host = "db";
-$dbname = "banana_tracker";
-$user = "postgres";
-$password = "your_password";
-
-// Create database connection
+// Get database configuration from environment variables
 function getDbConnection()
 {
-    global $host, $dbname, $user, $password;
+    $host = getenv("DB_HOST") ?: "db";
+    $dbname = getenv("DB_NAME") ?: "banana_tracker";
+    $user = getenv("DB_USER") ?: "postgres";
+    $password = getenv("DB_PASSWORD") ?: "your_password";
 
     try {
         $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);

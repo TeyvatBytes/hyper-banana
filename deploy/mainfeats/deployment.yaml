@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banana-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: banana-frontend
+  template:
+    metadata:
+      labels:
+        app: banana-frontend
+    spec:
+      containers:
+        - name: banana-frontend
+          image: php-banana
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: banana-frontend-credentials
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: banana-frontend-credentials
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: banana-frontend-credentials
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: banana-frontend-credentials
+                  key: DB_PASSWORD
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
