@@ -36,11 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["update_lot"])) {
         $lotId = $_POST["lot_id"];
         $field = $_POST["field"];
-        $value = $_POST["value"];
 
         // Handle checkbox for refrigerated
         if ($field === "refrigerated") {
-            $value = $value === "true" ? true : false;
+            // When checkbox is unchecked, value might not be set in POST
+            $value = isset($_POST["value"])
+                ? $_POST["value"] === "true"
+                : false;
+        } else {
+            $value = $_POST["value"] ?? "";
         }
 
         updateBananaLot($lotId, $field, $value);
